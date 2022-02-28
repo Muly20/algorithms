@@ -1,7 +1,7 @@
 
 """
-SCC - Kosoraju algorithm.py
-An implementation of [Kosaraju's linear-time Algorithm](https://) for finding directed graph's strongly-connected components.
+SCC - Kosaraju algorithm.py
+An implementation of Kosaraju's linear-time Algorithm for finding directed graph's strongly-connected components.
 implemented both recursive and stacked version (to avoid python's recoursive limits).
 """
 
