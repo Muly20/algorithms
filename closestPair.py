@@ -7,7 +7,7 @@ def closestSquaredDistance(x, y):
     The O(n log n) implementation of 2-D closest pair
 
     input:   two lists of x- and corresponding y-coordinates
-             corrects for (ignores) duplicates points
+             corrects for (ignores) duplicate points
     returns: a tuple of L2-distance and the closest pair:
              (dist, [point1, point2])
     """
@@ -20,13 +20,15 @@ def closestSquaredDistance(x, y):
         # using Px (sorted by x-coordinates)
         x_mean = Px[len(Px) // 2][0]
 
-        # only relevent points (within delta from x_mean), sorted by y-coordinate
+        # only relevant points (within delta from x_mean), sorted by y-coordinate
         # O(n)
         Sy = [(x, y) for x, y in Py if abs(x - x_mean) <= delta]
         if len(Sy) < 2:
             return None, None
 
         # find the closest pair within 8 points
+        # first, initialize min_distance with the highest possible,
+        # then run over the next 8 points to find closer pairs
         min_dist = pow(pow(Sy[0][1] - Sy[-1][1], 2) + pow((2 * delta), 2), .5)
 
         pair = (None, None)
@@ -42,7 +44,12 @@ def closestSquaredDistance(x, y):
         return pair
 
     def closestPair(Px, Py):
-
+        """
+        Px - all points sorted by x-coordinate
+        Py - all points sorted by y-coordinate
+        returns a tuple of two points ( (x,y) coordinates ) of the closest pair
+        """
+        # first, handle degenerate cases
         if len(Px) == 2: return Px[0], Px[1]
         if len(Px) == 3:
             dist1 = l2dist(Px[0], Px[1])
