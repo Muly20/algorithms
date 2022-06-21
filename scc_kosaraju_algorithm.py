@@ -7,9 +7,6 @@ implemented both recursive and stacked version (to avoid python's recursive limi
 
 import time
 from collections import deque
-import sys
-
-filepath = 'Algorithms/'
 
 def get_file(filepath, n):
   """
@@ -109,48 +106,50 @@ def ComputeSCC(G, G_rev, n):
   order = reversed(finishing_time)
   DFSLoop(G, n, order, reversed=False)
 
-# get files
 
-n = 875714 # number of vertices in 'SCC.txt'
-n1 = 9
-n2 = 8
-n3 = 8
-n4 = 8
-n5 = 12
-test1_adjlist, test1_adjlist_rev = get_file(filepath + 'test1_33300.txt', n1)
-test2_adjlist, test2_adjlist_rev = get_file(filepath + 'test2_33200.txt', n2)
-test3_adjlist, test3_adjlist_rev = get_file(filepath + 'test3_33110.txt', n3)
-test4_adjlist, test4_adjlist_rev = get_file(filepath + 'test4_71000.txt', n4)
-test5_adjlist, test5_adjlist_rev = get_file(filepath + 'test5_63210.txt', n5)
-SCC_list, SCC_list_rev = get_file(filepath + 'SCC.txt', n)
+if __name__ == '__main__':
 
-# SCC main
+  # get files
+  filepath = 'Algorithms/'
 
-# defining global variables
-explored_list = []
-leaders_dict = {} # dictionary with each key represent a Strongly-Connected Component, with values as the nodes within this SCC
-finishing_time = [] # a list of nodes with increasing order of finishing time
+  n = 875714 # number of vertices in 'SCC.txt'
+  n1 = 9
+  n2 = 8
+  n3 = 8
+  n4 = 8
+  n5 = 12
+  test1_adjlist, test1_adjlist_rev = get_file(filepath + 'test1_33300.txt', n1)
+  test2_adjlist, test2_adjlist_rev = get_file(filepath + 'test2_33200.txt', n2)
+  test3_adjlist, test3_adjlist_rev = get_file(filepath + 'test3_33110.txt', n3)
+  test4_adjlist, test4_adjlist_rev = get_file(filepath + 'test4_71000.txt', n4)
+  test5_adjlist, test5_adjlist_rev = get_file(filepath + 'test5_63210.txt', n5)
+  SCC_list, SCC_list_rev = get_file(filepath + 'SCC.txt', n)
 
-tic = time.time()
+  # defining global variables
+  explored_list = []
+  leaders_dict = {} # dictionary with each key represent a Strongly-Connected Component, with values as the nodes within this SCC
+  finishing_time = [] # a list of nodes with increasing order of finishing time
 
-# ComputeSCC(test5_adjlist, test5_adjlist_rev, n5)
-ComputeSCC(SCC_list, SCC_list_rev, n)
+  tic = time.time()
 
-toc = time.time()
+  # ComputeSCC(test5_adjlist, test5_adjlist_rev, n5)
+  ComputeSCC(SCC_list, SCC_list_rev, n)
 
-# evaluating running time
-t = ((toc - tic)*1000//1)
-sec = t/1000
+  toc = time.time()
 
-print(f"running time: {sec}s")
+  # evaluating running time
+  t = ((toc - tic)*1000//1)
+  sec = t/1000
 
-# finding largest 5 SCCs
-SCC_lengths = [0, 0, 0, 0, 0]
+  print(f"running time: {sec}s")
 
-for key in leaders_dict.keys():
-  key_len = len(leaders_dict[key])
-  if key_len > min(SCC_lengths):
-    SCC_lengths.append(key_len)
-    SCC_lengths.remove(min(SCC_lengths))
-SCC_lengths.sort(reverse=True)
-print(SCC_lengths)
+  # finding largest 5 SCCs
+  SCC_lengths = [0, 0, 0, 0, 0]
+
+  for key in leaders_dict.keys():
+    key_len = len(leaders_dict[key])
+    if key_len > min(SCC_lengths):
+      SCC_lengths.append(key_len)
+      SCC_lengths.remove(min(SCC_lengths))
+  SCC_lengths.sort(reverse=True)
+  print(SCC_lengths)
