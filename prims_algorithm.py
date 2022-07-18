@@ -38,21 +38,17 @@ s = random.randrange(1, 501)
 V[s] = False
 X.add(s)
 
-# util list for initializing the heap
+# initialize the heap
 # each vertex with no edge coming from X will have a priority (cost) of
-# +infinity
-# edges are stored as a tuple of (cost, vertex in V, vertex in X)
-temp = [None] + [(float('+inf'), v, None) for v in range(1, n+1)]
-heap = []
+# +infinity. edges are stored as a tuple of (cost, vertex in V, vertex in X)
+heap = [(float('+inf'), v, None) for v in range(1, n+1)]
 
 # run through edges coming out of the first vertex s and add their end
 # vertex (not in X) to the heap with their cost as key. O(m log n)
 for v, c in A[s]:
     # cost, destination vertex, source vertex
-    temp[v] = (c, v, s)
+    heap[v] = (c, v, s)
 
-# initialize the heap
-heap = [temp[v] for v in range(1, n+1)]
 heapq.heapify(heap)
 
 # main while loop
